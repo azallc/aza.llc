@@ -50,7 +50,7 @@ const container = staggerContainer(0.06);
         <div class="max-w-2xl mx-auto px-6 pt-12 pb-16">
             <SiteNav />
 
-            <motion.main :variants="container" initial="hidden" animate="visible" class="mt-12">
+            <motion.main :variants="container" initial="hidden" animate="visible" class="mt-12 mb-12">
                 <motion.h1 :variants="fadeUp" class="text-3xl md:text-4xl font-medium tracking-tight text-ink-text">
                     colophon
                 </motion.h1>
@@ -73,15 +73,6 @@ const container = staggerContainer(0.06);
                     </dl>
                 </motion.section>
 
-                <motion.p :variants="fadeUp" class="mt-12 text-sm text-ink-subtle leading-relaxed">
-                    the whole thing is open source —
-                    <a
-                        href="https://github.com/lostf1sh/lostf1sh.github.io"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="colophon-link"
-                    >read the source on github</a>.
-                </motion.p>
             </motion.main>
 
             <SiteFooter />
@@ -104,16 +95,4 @@ const container = staggerContainer(0.06);
     }
 }
 
-.colophon-link {
-    color: rgb(var(--color-text) / 0.8);
-    text-decoration: underline;
-    text-underline-offset: 2px;
-    text-decoration-color: rgb(var(--color-surface));
-    transition: color 0.15s ease;
-}
-
-.colophon-link:hover,
-.colophon-link:focus-visible {
-    color: rgb(var(--color-mint));
-}
 </style>

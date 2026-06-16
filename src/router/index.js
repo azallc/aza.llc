@@ -27,7 +27,7 @@ const routes = [
     component: () => import("@/pages/Projects.vue"),
     meta: {
       title: "Projects | aza",
-      description: "open source stuff.",
+      description: "tools, experiments, and projects.",
     },
   },
   {

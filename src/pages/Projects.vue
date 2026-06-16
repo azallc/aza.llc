@@ -62,7 +62,7 @@ const container = staggerContainer(0.06);
                     projects
                 </motion.h1>
                 <motion.p :variants="fadeUp" class="mt-2 text-ink-subtle">
-                    open source tools and experiments. mostly small, mostly useful.
+                    tools and experiments. mostly small, mostly useful.
                 </motion.p>
 
                 <div v-if="loading" class="mt-10 space-y-5">
@@ -97,10 +97,10 @@ const container = staggerContainer(0.06);
                     </motion.section>
 
                     <motion.section :variants="fadeUp" class="mt-10">
-                        <h2 class="text-ink-text font-medium mb-1">all repositories</h2>
+                        <h2 class="text-ink-text font-medium mb-1">all projects</h2>
 
                         <div v-if="!filteredRepos.length" class="text-sm text-ink-subtle py-4">
-                            no repositories to show.
+                            no projects to show.
                         </div>
 
                         <div v-else class="divide-y divide-ink-surface/30">

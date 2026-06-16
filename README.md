@@ -1,8 +1,6 @@
 ## setup
 
 ```bash
-git clone https://github.com/lostf1sh/lostf1sh.github.io
-cd lostf1sh.github.io
 bun install
 bun run dev
 ```
