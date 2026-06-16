@@ -2,7 +2,6 @@
 import { ref, onMounted, onBeforeUnmount } from "vue";
 import BootSequence from "@/components/BootSequence.vue";
 import BackToTop from "@/components/BackToTop.vue";
-import CustomCursor from "@/components/CustomCursor.vue";
 import CommandPalette from "@/components/CommandPalette.vue";
 import AccentAura from "@/components/AccentAura.vue";
 import { startLivingAccent } from "@/services/livingAccent";
@@ -33,7 +32,6 @@ onBeforeUnmount(() => {
 
 <template>
     <AccentAura />
-    <CustomCursor />
     <BootSequence />
     <CommandPalette />
     <router-view v-slot="{ Component, route }">

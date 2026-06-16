@@ -100,14 +100,6 @@ a {
     border: 0;
 }
 
-@media (pointer: fine) {
-    body.custom-cursor-enabled,
-    body.custom-cursor-enabled * {
-        cursor: none !important;
-    }
-}
-
-
 .skeleton-pulse {
     animation: skeleton-shimmer 2s ease-in-out infinite;
 }

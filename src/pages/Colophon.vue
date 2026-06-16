@@ -37,7 +37,7 @@ const groups = [
             ["motion-v", "animation, all of it honoring prefers-reduced-motion"],
             ["oklch", "perceptual color math behind the living accent"],
             ["view transitions", "the soft cross-fade between pages"],
-            ["⌘k", "command palette · custom cursor"],
+            ["⌘k", "command palette"],
         ],
     },
 ];
