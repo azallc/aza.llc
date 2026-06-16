@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        color-scheme: dark;
+        --vitality: 1;
+        --accent-aura: 0;
+        --color-crust: 10 10 10;
+        --color-base: 14 14 14;
+        --color-surface: 28 28 28;
+        --color-overlay: 48 48 48;
+        --color-subtle: 153 153 153;
+        --color-text: 224 224 224;
+        --color-accent: 255 255 255;
+        --color-mint-base: 78 201 160;
+        --color-mint: var(--color-mint-base);
+        --color-red: 220 80 80;
+        --color-yellow: 230 190 70;
+        --color-blue: 100 160 220;
+    }
+
+    [data-theme="light"] {
+        color-scheme: light;
+        --color-crust: 238 238 238;
+        --color-base: 245 245 245;
+        --color-surface: 215 215 215;
+        --color-overlay: 185 185 185;
+        --color-subtle: 90 90 90;
+        --color-text: 20 20 20;
+        --color-accent: 0 0 0;
+        --color-mint-base: 18 132 96;
+        --color-red: 180 50 50;
+        --color-yellow: 170 130 20;
+        --color-blue: 50 100 160;
+    }
+}
+
+/* View Transitions API — soft page change, driven by router.beforeResolve.
+   A previous attempt was removed because the default cross-fade dipped to the
+   dark background mid-transition (both snapshots semi-transparent at once).
+   Fix: keep the OLD frame fully opaque underneath and only fade the NEW frame
+   in over it, with normal blending — so the viewport is always covered by an
+   opaque image and can never reveal the bg. Only runs when supported and when
+   the user hasn't asked for reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+        mix-blend-mode: normal;
+    }
+
+    ::view-transition-old(root) {
+        animation: none;
+    }
+
+    ::view-transition-new(root) {
+        animation: vt-in 280ms cubic-bezier(0.4, 0, 0.2, 1) both;
+    }
+}
+
+@keyframes vt-in {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

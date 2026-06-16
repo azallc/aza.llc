@@ -1,0 +1,122 @@
+import { ref, watch } from "vue";
+import { lanyardData } from "@/services/lanyardService";
+import { markReady } from "@/services/preloader";
+import { readLocalCache, writeLocalCache, CACHE_KEYS } from "@/utils/apiLocalCache";
+
+const API_KEY = import.meta.env.VITE_LASTFM_API_KEY || "d68917d299d7b70521ad8de03f029abe";
+const USER = "blouzy";
+const BASE_URL = "https://ws.audioscrobbler.com/2.0/";
+const POLL_INTERVAL = 60_000;
+
+export const tracks = ref([]);
+
+let initialHydrated = false;
+let pollTimer = null;
+
+function normalizeTrackList(data) {
+  const raw = data?.recenttracks?.track;
+  if (!raw) return [];
+  return Array.isArray(raw) ? raw : [raw];
+}
+
+function hydrateFromCache() {
+  const row = readLocalCache(CACHE_KEYS.LASTFM_TRACKS);
+  if (!row?.value?.length) return false;
+  tracks.value = row.value;
+  initialHydrated = true;
+  markReady("songs");
+  return true;
+}
+
+export const getTopTracks = async (period = "7day", limit = 6) => {
+  const params = new URLSearchParams({
+    method: "user.gettoptracks",
+    user: USER,
+    api_key: API_KEY,
+    period,
+    limit,
+    format: "json",
+  });
+  const response = await fetch(`${BASE_URL}?${params}`);
+  if (!response.ok) {
+    throw new Error(`Last.fm top tracks request failed with ${response.status}`);
+  }
+  const data = await response.json();
+  const raw = data?.toptracks?.track;
+  const list = Array.isArray(raw) ? raw : raw ? [raw] : [];
+  return list.map((t) => ({
+    name: t.name,
+    artist: t.artist?.name || "",
+    playcount: Number(t.playcount) || 0,
+    url: t.url,
+  }));
+};
+
+const fetchTracks = async () => {
+  try {
+    const params = new URLSearchParams({
+      method: "user.getrecenttracks",
+      user: USER,
+      api_key: API_KEY,
+      format: "json",
+      limit: 50,
+    });
+
+    const response = await fetch(`${BASE_URL}?${params}`);
+    if (!response.ok) {
+      throw new Error(`Last.fm request failed with ${response.status}`);
+    }
+
+    const data = await response.json();
+    const list = normalizeTrackList(data);
+    tracks.value = list;
+    if (list.length) {
+      writeLocalCache(CACHE_KEYS.LASTFM_TRACKS, list);
+    }
+  } catch (err) {
+    if (import.meta.env.DEV) console.error("Failed to load recent tracks:", err);
+  } finally {
+    if (!initialHydrated) {
+      initialHydrated = true;
+      markReady("songs");
+    }
+  }
+};
+
+hydrateFromCache();
+
+const startPolling = () => {
+  if (pollTimer) return;
+  pollTimer = setInterval(fetchTracks, POLL_INTERVAL);
+};
+
+const stopPolling = () => {
+  if (pollTimer) {
+    clearInterval(pollTimer);
+    pollTimer = null;
+  }
+};
+
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) {
+    stopPolling();
+  } else {
+    fetchTracks();
+    startPolling();
+  }
+});
+
+let lastTrackId = null;
+watch(
+  () => lanyardData.spotify,
+  (spotify) => {
+    const trackId = spotify?.track_id ?? null;
+    if (trackId !== lastTrackId) {
+      lastTrackId = trackId;
+      setTimeout(fetchTracks, 5000);
+    }
+  },
+);
+
+fetchTracks();
+startPolling();
