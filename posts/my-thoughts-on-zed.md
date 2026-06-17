@@ -1,10 +1,9 @@
 ---
-
-## title: my thoughts on zed
+title: my thoughts on zed
 date: 2026-6-17
 tags: [developments, tools]
 excerpt: my thoughts on zed, the good and bad.
-
+---
 # first thoughts
 
 walking into it i knew it was opinionated and thought from the get go that some things just wouldnt be how i would want them to be. but after ~1 week of using it i can say i was wrong.
