@@ -76,6 +76,8 @@ html {
 }
 
 @media (prefers-reduced-transparency: reduce) {
-    .grain { display: none; }
+    .grain {
+        display: none;
+    }
 }
 </style>
