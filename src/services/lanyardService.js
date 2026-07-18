@@ -2,7 +2,7 @@ import { reactive } from "vue";
 import { readSessionCache, writeSessionCache } from "@/utils/apiLocalCache";
 
 const LANYARD_SESSION_KEY = "lanyard.presence.v1";
-const LANYARD_USER_ID = "1467922437248122880";
+const LANYARD_USER_ID = "805414172526379079";
 const REST_URL = `https://api.lanyard.rest/v1/users/${LANYARD_USER_ID}`;
 const FIRST_MESSAGE_MS = 12_000;
 const MAX_SESSION_AGE_MS = 24 * 60 * 60 * 1000;
