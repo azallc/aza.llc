@@ -134,11 +134,10 @@ onBeforeUnmount(() => {
 
             <motion.nav :variants="fadeUp" class="nav" aria-label="Primary">
                 <router-link to="/blog">blog</router-link>
-                <router-link to="/projects">projects</router-link>
+                <!-- <router-link to="/projects">projects</router-link> -->
                 <router-link to="/now">now</router-link>
                 <span class="nav-gap" aria-hidden="true"></span>
-                <a href="https://github.com/46bl" target="_blank" rel="noopener noreferrer">github</a>
-                <a href="https://codeberg.org/46bl" target="_blank" rel="noopener noreferrer">codeberg</a>
+                <a href="https://github.com/azallc" target="_blank" rel="noopener noreferrer">github</a>
             </motion.nav>
 
             <motion.p :variants="fadeUp" class="kbd-hint">
